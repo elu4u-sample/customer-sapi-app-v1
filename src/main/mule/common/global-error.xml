@@ -20,7 +20,7 @@ output application/json
 }]]></ee:set-payload>
 				</ee:message>
 				<ee:variables >
-					<ee:set-variable variableName="httpStatus" ><![CDATA[400]]></ee:set-variable>
+					<ee:set-variable variableName="httpStatus" ><![CDATA[500]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Error Logger" doc:id="b60014c2-df48-4fb0-a258-9c203d2a46a3" message='#[%dw 2.0&#10;output application/json indent = false&#10;---&#10;{&#10;	TimeStamp: now(),&#10;	transactionId: vars.headers."x-cms-transactionId", &#10;	AppName: app.name,&#10;	FlowName: flow.name,&#10;	Category: "Customer", &#10;	OriginatingApplication: "Process API",&#10;	CustomerId: "NA", &#10;	txnState: "ERROR"&#10;}]' />
