@@ -6,7 +6,7 @@
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
 http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
 	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="cffcd44b-305f-4ac4-9790-2399944984ce" >
-		<salesforce:basic-connection username="elu4usales@gmail.com" password="p.1waapa" securityToken="WRHqdZFw8WzRUKeRKlWAe6vv" />
+		<salesforce:basic-connection username="elu4usales@gmail.com" password="p.1waapaa" securityToken="WRHqdZFw8WzRUKeRKlWAe6vv" />
 	</salesforce:sfdc-config>
 	<flow name="post-customer-registrationFlow" doc:id="d8db5d09-bf17-4d38-915e-077a9d097187" >
 		<ee:transform doc:name="Transform Message" doc:id="b037d9b8-f20b-43fe-aaca-aa5ce934be63" >
@@ -38,11 +38,13 @@ output application/json
 ---
 {
   registrationResponse: {
-    eventInstanceId: vars.outboundHeaders.'x-cms-transactionId',
+    eventInstanceId: attributes.headers.'x-cms-transactionId',
     status: "success"
   }
 } as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
 			</ee:message>
+			<ee:variables >
+			</ee:variables>
 		</ee:transform>
 	</flow>
 </mule>
