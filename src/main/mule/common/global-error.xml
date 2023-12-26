@@ -4,7 +4,7 @@
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-	<error-handler name="global-errorError_Handler1" doc:id="f5fdb3bb-6176-427d-938f-bd6bd39636fd" >
+	<error-handler name="global-errorError_Handler" doc:id="f5fdb3bb-6176-427d-938f-bd6bd39636fd" >
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="85c57306-60b2-4798-85bd-352076bd4375" type="SALESFORCE:INVALID_INPUT">
 			<ee:transform doc:name="Transform Message" doc:id="49135fdf-b0c0-42f4-a5f4-1ead5568bc62" >
 				<ee:message >

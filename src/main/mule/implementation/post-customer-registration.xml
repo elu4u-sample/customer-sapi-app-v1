@@ -47,4 +47,37 @@ output application/json
 			</ee:variables>
 		</ee:transform>
 	</flow>
+	<flow name="post-customerState-registrationFlow" doc:id="bad3e9d6-f6da-43d9-b6c2-0e8c97e42422" >
+		<ee:transform doc:name="Transform Message" doc:id="ae2aa6d3-408a-443f-a1cb-33c2468ced4d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+[{
+  "contactType__c": payload.customerStateRequest.contactType,
+  "countryCode__c": payload.customerStateRequest.countryCode,
+  "mobile__c": payload.customerStateRequest.mobile,
+  "password__c": payload.customerStateRequest.password,
+  "status__c": payload.customerStateRequest.status
+}]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Request Log" doc:id="f6fd7298-c6ba-46eb-aabe-e9e4005d5ab3" message='#[%dw 2.0&#10;output application/json indent = false&#10;---&#10;{&#10;	TimeStamp: now(),&#10;	transactionId: vars.headers."x-cms-transactionId", &#10;	AppName: app.name,&#10;	FlowName: flow.name,&#10;	BusinessProcessName: "Customer State",&#10;	Category: "Customer", &#10;	OriginatingApplication: "Process API",&#10;	DesinationApplication: "Salesforce", &#10;	CustomerId: "NA", &#10;	txnState: "Request"&#10;}]' />
+		<salesforce:create type="customerState__c" doc:name="Create" doc:id="6867945a-0d50-418a-8587-ee9d3ee4c574" config-ref="Salesforce_Config" />
+		<logger level="INFO" doc:name="Response Log" doc:id="c5107bc4-869a-41c2-aa11-f9fc090eb5fc" message='#[%dw 2.0&#10;output application/json indent = false&#10;---&#10;{&#10;	TimeStamp: now(),&#10;	transactionId: vars.headers."x-cms-transactionId", &#10;	AppName: app.name,&#10;	FlowName: flow.name,&#10;	BusinessProcessName: "Customer State",&#10;	Category: "Customer", &#10;	OriginatingApplication: "Process API",&#10;	DesinationApplication: "Salesforce", &#10;	CustomerId: "NA", &#10;	txnState: "Response"&#10;}]' />
+		<ee:transform doc:name="Transform Message1" doc:id="5bdc2325-8169-4b2b-b41d-2b5cfd9bf934" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  customerStateRequest: {
+    eventInstanceId: attributes.headers.'x-cms-transactionId',
+    status: "success"
+  }
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables />
+		</ee:transform>
+	</flow>
 </mule>

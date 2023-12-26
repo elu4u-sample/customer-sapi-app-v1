@@ -1,0 +1,39 @@
+#%RAML 1.0 DataType
+
+type: object
+properties:
+  customerStateRequest:
+    type: object
+    required: true
+    properties:
+      contactType:
+        type: string
+        required: true
+        enum:
+          - "mobile"
+          - "email"
+        example: email
+      countryCode:
+        type: string
+        required: false
+        enum:
+          - "+91"
+          - "+1"
+        example: "+91"
+      mobile:
+        type: number
+        required: false
+        example: 9966293018
+      email:
+        type: string
+        required: false
+        example: "elu@gmail.com"
+      password:
+        type: string
+        required: true
+        example: "hjgtruw"
+      status:
+        type: boolean
+        required: true
+        example: true
+      

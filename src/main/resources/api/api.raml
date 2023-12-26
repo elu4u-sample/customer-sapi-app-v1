@@ -1,0 +1,83 @@
+#%RAML 1.0
+title: customer-sapi-raml
+description: Onboarding Customer Registration used to connect with SFDC
+
+traits:
+  header: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/traits/header-trait.raml
+types:
+  error: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/dataTypes/error-dataType.raml
+  request: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/dataTypes/request-dataType.raml
+  response: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/dataTypes/response-dataType.raml
+  requestcS: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/dataTypes/request-customerState-dataType.raml
+  responsecS: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/dataTypes/response-customerState-dataType.raml
+/customers:
+  /registration:
+    post:
+      is:
+        - header
+      body:
+        application/json:
+          type: request
+          example: !include /examples/post-registration-request.json
+      responses:
+        201:
+          body:
+            application/json:
+              type: response
+              example: !include /examples/post-registration-response-201.json
+        400:
+          body:
+            application/json:
+              type: error
+              example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-400-example.raml
+        401:
+          body:
+            application/json:
+              type: error
+              example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-401-example.raml
+        404:
+          body:
+            application/json:
+              type: error
+              example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-404-example.raml
+        500:
+          body:
+            application/json:
+              type: error
+              example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-500-example.raml
+
+/customerState:
+  post:
+    is:
+      - header
+    body:
+      application/json:
+        type: requestcS
+        example: !include /examples/post-customerState-request.json
+    responses:
+      201:
+        body:
+          application/json:
+            type: responsecS
+            example: !include /examples/post-customerState-response-201.json
+      400:
+        body:
+          application/json:
+            type: error
+            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-400-example.raml
+      401:
+        body:
+          application/json:
+            type: error
+            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-401-example.raml
+      404:
+        body:
+          application/json:
+            type: error
+            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-404-example.raml
+      500:
+        body:
+          application/json:
+            type: error
+            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-500-example.raml
+         
