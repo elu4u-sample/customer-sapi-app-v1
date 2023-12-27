@@ -5,22 +5,26 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<error-handler name="global-errorError_Handler" doc:id="f5fdb3bb-6176-427d-938f-bd6bd39636fd" >
-		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="85c57306-60b2-4798-85bd-352076bd4375" type="SALESFORCE:INVALID_INPUT">
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="85c57306-60b2-4798-85bd-352076bd4375" type="HTTP:CONNECTIVITY">
 			<ee:transform doc:name="Transform Message" doc:id="49135fdf-b0c0-42f4-a5f4-1ead5568bc62" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
 {
-  description: "Invalid username, password, security token; or user locked out",
-  detailedDescription: "Invalid username, password, security token; or user locked out",
-  errorType: "SALESFORCE:INVALID_INPUT",
-  cause: "org.mule.runtime.api.connection.ConnectionException",
-  errorMessage: "Invalid Credentials"
+  "msg": "Failed Operation",
+  "code": "404",
+  "success": false,
+  "eventId": "mjhngtfrew",
+  "error": {
+    "typee": "NOT_FOUND",
+    "title": "Resource Not Found",
+    "details": "The URI Requested Is Invalid or the resource requested does not exists"
+  }
 }]]></ee:set-payload>
 				</ee:message>
 				<ee:variables >
-					<ee:set-variable variableName="httpStatus" ><![CDATA[500]]></ee:set-variable>
+					<ee:set-variable variableName="httpStatus" ><![CDATA[404]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
 			<logger level="INFO" doc:name="Error Logger" doc:id="b60014c2-df48-4fb0-a258-9c203d2a46a3" message='#[%dw 2.0&#10;output application/json indent = false&#10;---&#10;{&#10;	TimeStamp: now(),&#10;	transactionId: vars.headers."x-cms-transactionId", &#10;	AppName: app.name,&#10;	FlowName: flow.name,&#10;	Category: "Customer", &#10;	OriginatingApplication: "Process API",&#10;	CustomerId: "NA", &#10;	txnState: "ERROR"&#10;}]' />

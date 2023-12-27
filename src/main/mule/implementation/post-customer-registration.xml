@@ -54,6 +54,7 @@ output application/json
 output application/json
 ---
 [{
+	"Name": payload.customerStateRequest.Name,
   "contactType__c": payload.customerStateRequest.contactType,
   "countryCode__c": payload.customerStateRequest.countryCode,
   "mobile__c": payload.customerStateRequest.mobile,
