@@ -3,13 +3,15 @@ title: customer-sapi-raml
 description: Onboarding Customer Registration used to connect with SFDC
 
 traits:
-  header: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/traits/header-trait.raml
+  header: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/traits/header-trait.raml
 types:
-  error: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/dataTypes/error-dataType.raml
-  request: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/dataTypes/request-dataType.raml
-  response: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/dataTypes/response-dataType.raml
-  requestcS: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/dataTypes/request-customerState-dataType.raml
-  responsecS: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/dataTypes/response-customerState-dataType.raml
+  error: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/dataTypes/error-dataType.raml
+  request: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/dataTypes/request-dataType.raml
+  response: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/dataTypes/response-dataType.raml
+  requestcS: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/dataTypes/request-customerState-dataType.raml
+  responsecS: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/dataTypes/response-customerState-dataType.raml
+  verificationRq: !include exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/dataTypes/verification-request-dataType.raml
+  verificationRp: !include exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/dataTypes/verification-response-dataType.raml
 /customers:
   /registration:
     post:
@@ -29,22 +31,22 @@ types:
           body:
             application/json:
               type: error
-              example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-400-example.raml
+              example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/examples/error-400-example.raml
         401:
           body:
             application/json:
               type: error
-              example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-401-example.raml
+              example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/examples/error-401-example.raml
         404:
           body:
             application/json:
               type: error
-              example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-404-example.raml
+              example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/examples/error-404-example.raml
         500:
           body:
             application/json:
               type: error
-              example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-500-example.raml
+              example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/examples/error-500-example.raml
 
 /customerState:
   post:
@@ -64,20 +66,54 @@ types:
         body:
           application/json:
             type: error
-            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-400-example.raml
+            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/examples/error-400-example.raml
       401:
         body:
           application/json:
             type: error
-            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-401-example.raml
+            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/examples/error-401-example.raml
       404:
         body:
           application/json:
             type: error
-            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-404-example.raml
+            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/examples/error-404-example.raml
       500:
         body:
           application/json:
             type: error
-            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.6/examples/error-500-example.raml
-         
+            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/examples/error-500-example.raml
+
+/verification:
+  post:
+    is:
+      - header
+    body:
+      application/json:
+        type: verificationRq
+        example: !include examples/post-verification-request.json
+    responses:
+      201:
+        body:
+          application/json:
+            type: verificationRp
+            example: !include examples/post-verification-response.json
+      400:
+        body:
+          application/json:
+            type: error
+            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/examples/error-400-example.raml
+      401:
+        body:
+          application/json:
+            type: error
+            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/examples/error-401-example.raml
+      404:
+        body:
+          application/json:
+            type: error
+            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/examples/error-404-example.raml
+      500:
+        body:
+          application/json:
+            type: error
+            example: !include /exchange_modules/6fe6500a-8a36-473d-89eb-51336170bcb4/traits/1.0.9/examples/error-500-example.raml 
